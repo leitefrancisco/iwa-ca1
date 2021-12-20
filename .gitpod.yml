@@ -1,2 +1,2 @@
 tasks:
-  -init: npm i
+  - init: npm i
