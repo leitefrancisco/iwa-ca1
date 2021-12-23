@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 <xsl:template match="/">
 <xsl:for-each select = "//recipe">
-<div class = "recipe-container"> 
+<div class = "recipe-container container"> 
 
     <h1>
         <xsl:value-of select = "title"/>
