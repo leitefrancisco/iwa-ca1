@@ -2,10 +2,10 @@ var currentSelected='';
 
 
 function openRecipe(recipeId){
-    draw_recipe();
+    draw_recipe(recipeId);
 }
 
-function draw_recipe(){
+function draw_recipe(recipeId){
     $("#middle").empty();
     $.getHTMLuncached = function(url) {
         return $.ajax({
@@ -17,7 +17,7 @@ function draw_recipe(){
             }
         });
     };
-    $.getHTMLuncached("/get/recipe");
+    $.getHTMLuncached("/get/recipe",recipeId);
 };
 
 

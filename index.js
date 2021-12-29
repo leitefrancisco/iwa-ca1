@@ -11,7 +11,7 @@ server = http.createServer(router);
 
 router.use(express.static(path.resolve(__dirname,"views")));
 
-router.get("/get/recipe",function(req, res){
+router.get("/get/recipe",recipeId,function(req, res){
 
     res.writeHead(200, {'Content-Type' : 'text/html'}); //Tell the user that the resource exists and which type that is
 
