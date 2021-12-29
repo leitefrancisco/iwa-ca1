@@ -7,9 +7,11 @@ function openRecipe(recipeId){
 
 function draw_recipe(recipeId){
     $("#middle").empty();
+    var id = recipeId;
     $.getHTMLuncached = function(url) {
         return $.ajax({
             url: url,
+            data: "id="+id,
             type: 'GET',
             cache: false,
             success: function(html) {
@@ -17,7 +19,7 @@ function draw_recipe(recipeId){
             }
         });
     };
-    $.getHTMLuncached("/get/recipe",recipeId);
+    $.getHTMLuncached("/get/recipe");
 };
 
 

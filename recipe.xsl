@@ -1,11 +1,12 @@
 <?xml version="1.0"?> 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:param name="id"/>
 <xsl:template match="/">
  
     <div class="row">
         <div class="col">
             <h1>
-                <xsl:value-of select = "//recipe[id=2]/title"/>
+                <xsl:value-of select = "//recipe[$id]/title"/>
             </h1>
             <h2>
                 Ingredients

@@ -1,7 +1,11 @@
 <?xml version="1.0"?> 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 <xsl:template match="/">
+
+
 <xsl:for-each select = "//recipe">
+
+
 <div class = "recipe-container container"> 
 
     <h1>
@@ -11,7 +15,7 @@
         Ingredients
     </h2>
     <ul>
-        <xsl:for-each select = "//ingredient">
+        <xsl:for-each select = "./ingredients/ingredient">
             <li>
                 <xsl:value-of select = "."/>
             </li>        
@@ -24,6 +28,9 @@
         <xsl:value-of select = "instructions"/>
     </p>
 </div>
+
+
+
 </xsl:for-each>
 </xsl:template>
 </xsl:stylesheet>

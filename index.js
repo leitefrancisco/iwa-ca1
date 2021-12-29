@@ -11,9 +11,11 @@ server = http.createServer(router);
 
 router.use(express.static(path.resolve(__dirname,"views")));
 
-router.get("/get/recipe",recipeId,function(req, res){
 
-    res.writeHead(200, {'Content-Type' : 'text/html'}); //Tell the user that the resource exists and which type that is
+
+router.get("/get/recipe",function(req, res){
+
+     res.writeHead(200, {'Content-Type' : 'text/html'}); //Tell the user that the resource exists and which type that is
 
     let xml = fs.readFileSync('recipes.xml', 'utf8'), //read in the XML file
         xsl = fs.readFileSync('recipe.xsl', 'utf8'); //read in the XSL file
@@ -28,6 +30,25 @@ router.get("/get/recipe",recipeId,function(req, res){
     
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.get("/get/recipes-titles",function(req, res){
 
         res.writeHead(200, {'Content-Type' : 'text/html'}); //Tell the user that the resource exists and which type that is
@@ -41,14 +62,12 @@ router.get("/get/recipes-titles",function(req, res){
     
         let result = xsltProcess(doc, stylesheet); //Performing XSLT
     
-        res.end(result.toString()); //Serve back the user
-        // res.end('{"nome": "xico", "idade": "velho pra caralho"}');
-    
+        res.end(result.toString()); //Serve back the user    
     });
     
 router.post("/recipes", function(req, record){});
 
-server.listen(process.env.PORT || 3001,
+server.listen(process.env.PORT || 3000,
     process.env.IP || "0.0.0.0",
     function () {
         const addr = server.address();
