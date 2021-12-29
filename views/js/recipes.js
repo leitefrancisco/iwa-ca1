@@ -1,29 +1,23 @@
 var currentSelected='';
-// function fnGet(url, callbackFn){
-//     return $.ajax({
-//         url: url,
-//         type: 'GET',
-//         cache: false,
-//         success:  callbackFn});
-// }
+
 
 function openRecipe(recipeId){
-    alert(recipeId);
+    draw_recipe();
 }
 
-function draw_recipes(){
-    $("#main").empty();
+function draw_recipe(){
+    $("#middle").empty();
     $.getHTMLuncached = function(url) {
         return $.ajax({
             url: url,
             type: 'GET',
             cache: false,
             success: function(html) {
-                $("#main").append(html);
+                $("#middle").append(html);
             }
         });
     };
-    $.getHTMLuncached("/get/recipes");
+    $.getHTMLuncached("/get/recipe");
 };
 
 
@@ -42,13 +36,8 @@ function getTitles(){
     $.getHTMLuncached("/get/recipes-titles");
 };
 
-$(document).ready(function(){
-    // draw_recipes();
-    getTitles();
-    // fnGet("/get/recipes", function(data){console.log(data)});
-    // var fnCall = function(d) {
-        
-    // }
-    // fnGet("/get/recipes", fnCall)
 
+
+$(document).ready(function(){
+    getTitles();
 });
