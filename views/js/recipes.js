@@ -2,19 +2,46 @@ var currentSelected='';
 
 
 
-function addNewRow(){
+function add_new_row(){
     $("#ingredients-row").append('<label class="extra-ingredients form-label">Ingredient:</label>'+'<input type="text" class="form-control">')
-}
-function deleteEmptyRows(){
+};
+function delete_empty_rows(){
 
-}
+};
 
 function open_recipe(recipeId){
     $("#middle").empty();
     draw_recipe(recipeId);
     currentSelected = recipeId;
     console.log(currentSelected);
-}
+};
+
+function add_new_recipe(){
+    $("#middle").empty();
+    currentSelected = '';
+    let strHtml =   "<form class = 'ingredients-form'>"+
+                    "<label for='recipe-name' class='form-label'>Recipe Name:</label>"+
+                    "<input type='text' class='form-control' id='recipe-name'>"+
+                    "<div class='mb-3'>"+
+                    "<label class='form-label'>Ingredients</label>"+
+                    "<div id = 'ingredients-row' class='col-4'>"+                        
+                    "<input type='text' class='form-control '>"+                      
+                    "</div>"+
+                    "<button id = 'btnRemoveRow' type='button' class='btn btn-warning' style= 'float:right' onclick='delete_empty_rows()'> Remove Empty Ingredients Rows  </button>"+
+                    "<button id = 'btnAddRow' type='button' class='btn btn-info' style='float: right' onclick='add_new_row()'>Add Ingredient Row</button>"+
+                    "</div>"+
+                    "<div class='mb-3'>"+
+                    "<label for='recipe-Instructions' class='form-label'>Instructions:</label>"+
+                    "<div id = 'instructions-row'>"+
+                    "<textarea type  = 'text' class='form-control' id='recipe-instructions' rows='5' ></textarea>"+
+                    "</div>"+
+                    "</div>"+
+                    "<button type='submit' class='btn btn-primary' >Save Recipe</button>"+
+                    "</form>";
+    $("#middle").append(strHtml);
+
+};
+
 
 function draw_recipe(recipeId){
     $("#middle").empty();
@@ -59,7 +86,6 @@ function draw_recipe(recipeId){
     
 };
 
-
 function edit_recipe(){
     $("#middle").empty();
     $.getHTMLuncached = function(url) {
@@ -91,8 +117,8 @@ function edit_recipe(){
                 }
 
                 strHtml += "</div>"+
-                    "<button id = 'btnRemoveRow' type='button' class='btn btn-warning' style= 'float:right' onclick='deleteEmptyRows()'> Remove Empty Ingredients Rows  </button>"+
-                    "<button id = 'btnAddRow' type='button' class='btn btn-info' style='float: right' onclick='addNewRow()'>Add Ingredient Row</button>"+
+                    "<button id = 'btnRemoveRow' type='button' class='btn btn-warning' style= 'float:right' onclick='delete_empty_rows()'> Remove Empty Ingredients Rows  </button>"+
+                    "<button id = 'btnAddRow' type='button' class='btn btn-info' style='float: right' onclick='add_new_row()'>Add Ingredient Row</button>"+
                     "</div>"+
                     "<div class='mb-3'>"+
                     "<label for='recipe-Instructions' class='form-label'>Instructions:</label>"+
