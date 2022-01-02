@@ -54,13 +54,13 @@ router.get("/get/recipe", function(req, res){
                     res.end(recJsonStr); //Serve back the user
                 }
             }
-            let empty = {
-                id: [ '0' ],
-                title: [ '' ],
-                ingredients: [ { ingredient: [] } ],
-                instructions: [ '' ]
-              }
-            res.end(JSON.stringify(empty)); //Serve back the user with none found // look into throuw a 404
+            // let empty = {
+            //     id: [ '0' ],
+            //     title: [ '' ],
+            //     ingredients: [ { ingredient: [] } ],
+            //     instructions: [ '' ]
+            //   }
+            // res.end(JSON.stringify(empty)); //Serve back the user with none found // look into throuw a 404
         });
     };
     
