@@ -11,23 +11,61 @@ server = http.createServer(router);
 
 router.use(express.static(path.resolve(__dirname,"views")));
 
+function XMLtoJSON(filename, cb){
+    let filepath = path.normalize(path.join(__dirname, filename));
+    fs.readFile(filepath, 'utf8', function(err, xmlStr){
+        if (err) throw (err);
+        xml2js.parseString(xmlStr, {}, cb);
+    });
+};
 
+function JSONtoXMLDoc( obj) {
+    let builder = new xml2js.Builder();
+    let xml = builder.buildObject(obj);
+    return xml;
+};
 
-router.get("/get/recipe",function(req, res){
+function JSONtoXMLFile(filename, obj, cb) {
+    let xml = JSONtoXMLDoc(obj, cb)
+    let filepath = path.normalize(path.join(__dirname, filename));
+    fs.unlinkSync(filepath);
+    fs.writeFile(filepath, xml, cb);
+};
 
-     res.writeHead(200, {'Content-Type' : 'text/html'}); //Tell the user that the resource exists and which type that is
+router.get("/get/recipe", function(req, res){
 
-    let xml = fs.readFileSync('recipes.xml', 'utf8'), //read in the XML file
-        xsl = fs.readFileSync('recipe.xsl', 'utf8'); //read in the XSL file
+     res.writeHead(200, {'Content-Type' : 'application/json'}); //Tell the user that the resource exists and which type that is
 
+     
+    function getRecipeJSON(obj){
 
-    let doc = xmlParse(xml), //Parse the XML file
-        stylesheet = xmlParse(xsl); //Parse the XSL file
+        console.log(obj)
+        // XML => JSON => (FILTER)
+        XMLtoJSON('recipes.xml', function(err, result){
+            if (err) throw (err);
+            let recipes = result.recipes.recipe;
 
-    let result = xsltProcess(doc, stylesheet); //Performing XSLT
-
-    res.end(result.toString()); //Serve back the user
+            for(let i=0; i<recipes.length; i++){
+                let rec = recipes[i];
+                if(rec.id[0]==obj.id){ // filter
+                    console.log("Found");
+                    console.log(rec);
+                    let recJsonStr = JSON.stringify(rec);
+                    res.end(recJsonStr); //Serve back the user
+                }
+            }
+            let empty = {
+                id: [ '0' ],
+                title: [ '' ],
+                ingredients: [ { ingredient: [] } ],
+                instructions: [ '' ]
+              }
+            res.end(JSON.stringify(empty)); //Serve back the user with none found // look into throuw a 404
+        });
+    };
     
+    getRecipeJSON(req.query);
+     
 });
 
 

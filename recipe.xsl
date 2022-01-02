@@ -6,13 +6,13 @@
     <div class="row">
         <div class="col">
             <h1>
-                <xsl:value-of select = "//recipe[$id]/title"/>
+                <xsl:value-of select = "//root/title"/>
             </h1>
             <h2>
                 Ingredients
             </h2>
             <ul> 
-            <xsl:for-each select = "//recipe[id=2]/ingredients/ingredient">
+            <xsl:for-each select = "//root/ingredients/ingredient">
                 <li>
                 <xsl:value-of select = "."/>
                 </li>        
@@ -22,7 +22,7 @@
                 Instructions
             </h2>
             <p>
-                <xsl:value-of select = "//recipe[id=2]/instructions"/> 
+                <xsl:value-of select = "//root/instructions"/> 
             </p>
         </div>
     </div>

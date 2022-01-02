@@ -7,15 +7,31 @@ function openRecipe(recipeId){
 
 function draw_recipe(recipeId){
     $("#middle").empty();
-    var id = recipeId;
     $.getHTMLuncached = function(url) {
         return $.ajax({
             url: url,
-            data: "id="+id,
+            data: "id="+ recipeId,
             type: 'GET',
             cache: false,
-            success: function(html) {
-                $("#middle").append(html);
+            success: function(rec) {
+                
+                //$("#middle").append(html);
+                console.log(rec);
+                
+                let ingredients = rec.ingredients[0].ingredient;
+                let strHtml = "<form>"
+
+                strHtml += "<h1>" + rec.title + "</h1>"
+                
+                for(let i=0; i < ingredients.length;i++){
+                    strHtml += "<label>ingredient</label><input type='text' value='"+ingredients[i]+ "'>"
+                }
+                strHtml += "</form>";
+                $("#middle").append(strHtml);
+
+            },
+            error: function(r) {
+                console.log("Error " + r.responseText);
             }
         });
     };
@@ -37,6 +53,11 @@ function getTitles(){
     };
     $.getHTMLuncached("/get/recipes-titles");
 };
+
+
+
+
+
 
 
 
