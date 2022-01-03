@@ -1,7 +1,6 @@
 var currentSelected='';
 
 
-
 function add_new_row(){
     $("#ingredients-row").append('<label class="extra-ingredients form-label">Ingredient:</label>'+'<input type="text" class="form-control">')
 };
@@ -41,7 +40,6 @@ function add_new_recipe(){
     $("#middle").append(strHtml);
 
 };
-
 
 function draw_recipe(recipeId){
     $("#middle").empty();
@@ -84,6 +82,23 @@ function draw_recipe(recipeId){
     };
     $.getHTMLuncached("/get/recipe");
     
+};
+
+function delete_recipe(sec, ent){
+    $("#delete").click(function()
+    {
+        $.ajax(
+            {
+                url: "/post/delete",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/json',
+                data: '{"sec": "' + sec + '", "ent": "' + ent + '"}',
+                cache: false,
+                success: setTimeout(draw_table, 1000)
+            }
+        )
+    })
 };
 
 function edit_recipe(){

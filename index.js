@@ -35,8 +35,7 @@ function JSONtoXMLFile(filename, obj, cb) {
 router.get("/get/recipe", function(req, res){
 
      res.writeHead(200, {'Content-Type' : 'application/json'}); //Tell the user that the resource exists and which type that is
-
-     
+  
     function getRecipeJSON(obj){
 
         console.log(obj)
@@ -63,29 +62,8 @@ router.get("/get/recipe", function(req, res){
             // res.end(JSON.stringify(empty)); //Serve back the user with none found // look into throuw a 404
         });
     };
-    
     getRecipeJSON(req.query);
-     
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 router.get("/get/recipes-titles",function(req, res){
 
