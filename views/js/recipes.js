@@ -83,9 +83,14 @@ function draw_recipe(recipeId){
     
 };
 
+function refresh_page(){
+    // document.getElementById("middle").innerHTML = "";
+    $("#middle").html("");
+    getTitles();
+}
 
 function delete_recipe(){
-
+    
     $.delete = function(url) {
         $.ajax(
             {
@@ -94,12 +99,12 @@ function delete_recipe(){
                 dataType: 'json',
                 contentType: 'application/json',
                 data: {id: currentSelected},
-                success: setTimeout(getTitles(),1000)
+                success: setTimeout(refresh_page,1000)
             }
         )
     };
     $.delete('/post/delete/'+currentSelected);
-   $("middle").empty();
+  
 };
 
 function edit_recipe(){

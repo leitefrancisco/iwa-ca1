@@ -102,8 +102,7 @@ router.get("/get/recipes-titles",function(req, res){
     
         let xml = fs.readFileSync('recipes.xml', 'utf8'), //read in the XML file
             xsl = fs.readFileSync('recipes-titles.xsl', 'utf8'); //read in the XSL file
-    
-            console.log(xml)
+
         let doc = xmlParse(xml), //Parse the XML file
             stylesheet = xmlParse(xsl); //Parse the XSL file
     
