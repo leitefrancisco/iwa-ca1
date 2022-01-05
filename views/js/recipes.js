@@ -236,6 +236,7 @@ function getFields(obj){
             "ingredient":"hjujdujdu"
         }
     ]}
+    "teste"
 }
 
 function generate_id(){
