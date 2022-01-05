@@ -58,39 +58,12 @@
         </instructions>
   </recipe>
   <recipe>
-    <title>c</title>
-    <id>1a83d4bb-a7fc-4c7a-85ed-3aec2392e71c</id>
+    <title>nova</title>
+    <id>b21c742f-3126-4d7a-ac72-6d6acb85e4dc</id>
     <ingredients>
-      <ingredient/>
+      <ingredient>tete</ingredient>
+      <ingredient>tete</ingredient>
     </ingredients>
-    <instructions/>
-  </recipe>
-  <recipe>
-    <title>xico é maconheiro</title>
-    <id>e6229cee-9d0d-4d6c-b3d4-96ce548d5515</id>
-    <ingredients>
-      <ingredient>não</ingredient>
-      <ingredient>sabe</ingredient>
-      <ingredient>copiar</ingredient>
-      <ingredient>4</ingredient>
-      <ingredient>palavras</ingredient>
-      <ingredient>para</ingredient>
-      <ingredient>salvar</ingredient>
-      <ingredient>a</ingredient>
-      <ingredient>vida</ingredient>
-      <ingredient>dele</ingredient>
-      <ingredient>.</ingredient>
-      <ingredient/>
-    </ingredients>
-    <instructions/>
-  </recipe>
-  <recipe>
-    <title>esta é a última</title>
-    <id>41c729e1-f46d-468c-b918-8343187b7e0d</id>
-    <ingredients>
-      <ingredient>batata</ingredient>
-      <ingredient/>
-    </ingredients>
-    <instructions/>
+    <instructions>asdasda</instructions>
   </recipe>
 </recipes>
