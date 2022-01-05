@@ -1,60 +1,40 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <recipes>
-    <recipe>
-        <id>1</id>
-        <title>
+  <recipe>
+    <id>1</id>
+    <title>
             Estrombolhofe de pombo gordo
         </title>
-        <ingredients>
-            <ingredient>
+    <ingredients>
+      <ingredient>
                 pombo gordo
             </ingredient>
-            <ingredient>
+      <ingredient>
                 molho
             </ingredient>
-        </ingredients>
-        <instructions>
+    </ingredients>
+    <instructions>
             blab albal balb allb allb
         </instructions>
-    </recipe>
-    <recipe>
-        <id>2</id>
-        <title>
-            Porco Morto com Batata
-        </title>
-        <ingredients>
-            <ingredient>
-                porco morto
-            </ingredient>
-            <ingredient>
-                batata
-            </ingredient>
-            <ingredient>
-                azeite
-            </ingredient>
-        </ingredients>
-        <instructions>
-            assa tudo junto
-        </instructions>
-    </recipe>
-    <recipe>
-        <id>3</id>
-        <title>
+  </recipe>
+  <recipe>
+    <id>3</id>
+    <title>
             Lingua de Boi
         </title>
-        <ingredients>
-            <ingredient>
+    <ingredients>
+      <ingredient>
                 Lingua de boi
             </ingredient>
-            <ingredient>
+      <ingredient>
                 agua
             </ingredient>
-            <ingredient>
+      <ingredient>
                 sal
             </ingredient>
-        </ingredients>
-        <instructions>
+    </ingredients>
+    <instructions>
            mistura tudo e cozinha
         </instructions>
-    </recipe>
+  </recipe>
 </recipes>

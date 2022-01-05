@@ -48,7 +48,7 @@ router.get("/get/recipe", function(req, res){
                 let rec = recipes[i];
                 if(rec.id[0]==obj.id){ // filter
                     console.log("Found");
-                    // console.log(rec);
+                    console.log(rec);
                     let recJsonStr = JSON.stringify(rec);
                     res.end(recJsonStr); //Serve back the user
                 }
@@ -114,7 +114,7 @@ router.get("/get/recipes-titles",function(req, res){
     
 router.post("/recipes", function(req, record){});
 
-server.listen(process.env.PORT || 3000,
+server.listen(process.env.PORT || 3001,
     process.env.IP || "0.0.0.0",
     function () {
         const addr = server.address();

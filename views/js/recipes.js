@@ -1,12 +1,18 @@
 var currentSelected='';
+var jsonFile = '';
 
+function refresh_page(){
+    $("#middle").html("");
+    getTitles();
+}
 
 function add_new_row(){
-    $("#ingredients-row").append('<label class="extra-ingredients form-label">Ingredient:</label>'+'<input type="text" class="form-control">')
+    $("#ingredients-row").append('<input type="text" class="form-control">')
 };
 
-function delete_empty_rows(){
-
+function delete_last_ingredient_row(){
+    var list = document.getElementById("ingredients-row");   
+    list.removeChild(list.childNodes[list.childNodes.length -1]);    
 };
 
 function open_recipe(recipeId){
@@ -22,11 +28,11 @@ function add_new_recipe(){
                     "<label for='recipe-name' class='form-label'>Recipe Name:</label>"+
                     "<input type='text' class='form-control' id='recipe-name'>"+
                     "<div class='mb-3'>"+
-                    "<label class='form-label'>Ingredients</label>"+
+                    "<label class='form-label'>Ingredients:</label>"+
                     "<div id = 'ingredients-row' class='col-4'>"+                        
-                    "<input type='text' class='form-control '>"+                      
+                    "<input type='text' class='form-control'>"+                      
                     "</div>"+
-                    "<button id = 'btnRemoveRow' type='button' class='btn btn-warning' style= 'float:right' onclick='delete_empty_rows()'> Remove Empty Ingredients Rows  </button>"+
+                    "<button id = 'btnRemoveRow' type='button' class='btn btn-warning' style= 'float:right' onclick='delete_last_ingredient_row()'> Remove Last Ingredient Row </button>"+
                     "<button id = 'btnAddRow' type='button' class='btn btn-info' style='float: right' onclick='add_new_row()'>Add Ingredient Row</button>"+
                     "</div>"+
                     "<div class='mb-3'>"+
@@ -35,7 +41,7 @@ function add_new_recipe(){
                     "<textarea type  = 'text' class='form-control' id='recipe-instructions' rows='5' ></textarea>"+
                     "</div>"+
                     "</div>"+
-                    "<button type='submit' class='btn btn-primary' >Save Recipe</button>"+
+                    "<button type='button' class='btn btn-primary' onclick ='getFields(0)' >Save Recipe</button>"+
                     "</form>";
     $("#middle").append(strHtml);
 
@@ -83,11 +89,7 @@ function draw_recipe(recipeId){
     
 };
 
-function refresh_page(){
-    // document.getElementById("middle").innerHTML = "";
-    $("#middle").html("");
-    getTitles();
-}
+
 
 function delete_recipe(){
     
@@ -105,6 +107,42 @@ function delete_recipe(){
     };
     $.delete('/post/delete/'+currentSelected);
   
+};
+
+function save_eddited_recipe() {
+
+    $.edit = function (url) {
+        $.ajax(
+            {
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: { jsonFile },
+                success: setTimeout(refresh_page, 1000)
+            }
+        )
+    };
+    $.edit('/post/edit/');
+
+};
+
+function save_new_recipe() {
+
+    $.add = function (url) {
+        $.ajax(
+            {
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: { jsonFile },
+                success: setTimeout(refresh_page, 1000)
+            }
+        )
+    };
+    $.add('/post/add/');
+
 };
 
 function edit_recipe(){
@@ -131,14 +169,11 @@ function edit_recipe(){
                     "<div id = 'ingredients-row' class='col-4'>";
                 
                 for(let i=0; i < ingredients.length;i++){
-                    
-                    strHtml += "<label  class='form-label'>Ingredient:</label>" +
-                        "<input type='text' class='form-control ' value = '"+ingredients[i]+"'>";
-                        
+                    strHtml +="<input type='text' class='form-control ' value = '"+ingredients[i]+"'>";
                 }
 
                 strHtml += "</div>"+
-                    "<button id = 'btnRemoveRow' type='button' class='btn btn-warning' style= 'float:right' onclick='delete_empty_rows()'> Remove Empty Ingredients Rows  </button>"+
+                    "<button id = 'btnRemoveRow' type='button' class='btn btn-warning' style= 'float:right' onclick='delete_last_ingredient_row()'> Remove Last Ingredient Row  </button>"+
                     "<button id = 'btnAddRow' type='button' class='btn btn-info' style='float: right' onclick='add_new_row()'>Add Ingredient Row</button>"+
                     "</div>"+
                     "<div class='mb-3'>"+
@@ -147,7 +182,7 @@ function edit_recipe(){
                     "<textarea type  = 'text' class='form-control' id='recipe-instructions' rows='5' >"+rec.instructions+"</textarea>"+
                     "</div>"+
                     "</div>"+
-                    "<button type='submit' class='btn btn-primary' >Save Recipe</button>"+
+                    "<button type='button' class='btn btn-primary' onclick= 'get_fields(1)'>Save Recipe</button>"+
                     "</form>";
                 $("#middle").append(strHtml);
 
@@ -160,6 +195,52 @@ function edit_recipe(){
     $.getHTMLuncached("/get/recipe");
     
 };
+
+//https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+
+
+function getFields(obj){
+    
+    var recipe_id ='';
+
+    if (currentSelected != ''){
+        recipe_id = currentSelected;
+    }
+    else{
+        recipe_id = uuidv4();
+    }
+
+    var title = document.getElementById("recipe-name").value.trim();
+    var instructions = document.getElementById("recipe-instructions").value.trim();
+    var list = document.querySelectorAll("#ingredients-row > input");
+    var ingredients =[]
+    if (list != null && list.length>0){
+        for (var i = 0; i<list.length ; i++){
+            eachElement = list[i].value;
+            ingredients.push(eachElement);
+        }
+    }
+    
+    //convert to json
+    {[
+        "id": recipe_id,
+        "instruction": "tre",
+        "title":"gfd",
+        "ingredients"{
+            "ingredient":"tre",
+            "ingredient":"hjujdujdu"
+        }
+    ]}
+}
+
+function generate_id(){
+
+}
 
 function getTitles(){
     $("#menu-recipes").empty();
