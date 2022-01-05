@@ -1,15 +1,20 @@
+
 const express = require("express"),
 fs = require("fs"),
 http = require("http"),
 path = require("path"),
 xml2js = require("xml2js"),
 xmlParse = require ("xslt-processor").xmlParse,
-xsltProcess = require("xslt-processor").xsltProcess;
+xsltProcess = require("xslt-processor").xsltProcess,
+uuid = require("uuid")
+;
+
 
 const router = express(),
 server = http.createServer(router);
 
 router.use(express.static(path.resolve(__dirname,"views")));
+router.use(express.json());
 
 function XMLtoJSON(filename, cb){
     let filepath = path.normalize(path.join(__dirname, filename));
@@ -65,36 +70,33 @@ router.get("/get/recipe", function(req, res){
     getRecipeJSON(req.query);
 });
 
-router.post('/post/delete/:id', function(req, res){
-    // res.writeHead(200, {'Content-Type' : 'application/json'});
-
+router.post('/post/delete', function(req, res){
     function deleteJSON(obj){
-
-        console.log(obj)
-    
+        if(obj===undefined){
+            throw ("invalid request");
+        }
+        // console.log(obj)
         XMLtoJSON('recipes.xml', function(err, result){
             if (err) throw (err);
             let recipes = result.recipes.recipe;
             for(let i=0; i<recipes.length; i++){
                 let rec = recipes[i];
-                if(rec.id[0]==obj){ // filter
-                    console.log(rec);
+                if(rec.id[0]==obj.id){ // filter
+                    // console.log(rec);
                     delete recipes[i];
-                    // let recJsonStr = JSON.stringify(rec);
-                    // res.end(recJsonStr); //Serve back the user
                 }
-                console.log(recipes);
+                // console.log(recipes);
             }
             JSONtoXMLFile('recipes.xml', result, function(err){
                 if (err) console.log(err);
-                res.redirect('back');
+                // res.redirect('back');
+                res.end();
             });
         });
-    };
+    }; 
 
-    deleteJSON(req.params.id);
+    deleteJSON(req.body);
 });
-
 
 router.get("/get/recipes-titles",function(req, res){
 
@@ -111,6 +113,64 @@ router.get("/get/recipes-titles",function(req, res){
         res.end(result.toString()); //Serve back the user    
         
     });
+
+function addOrEdit(recipe, res) {
+    if(recipe.id=="") {
+        addRecipe(recipe, res);
+    }else{
+        editRecipe(recipe, res);
+    }
+}
+
+function addRecipe(recipe, res) {
+    // xml 
+    console.log("add");
+    recipe.id = uuid.v4();
+    XMLtoJSON('recipes.xml', function(err, result){
+        console.log("xmltojson");
+        
+        if (err) throw (err);
+        // let recipes = result.recipes.recipe;
+        result.recipes.recipe.push(recipe);
+        console.log(result);
+        
+        JSONtoXMLFile('recipes.xml', result, function(err){
+            if (err) console.log(err);
+            // res.redirect('back');
+            res.end();
+        });
+    });
+}
+
+function editRecipe(recipe, res) {
+    //xml
+    console.log("edit: " + recipe.id);
+    XMLtoJSON('recipes.xml', function(err, result){
+        if (err) throw (err);
+        let recipes = result.recipes.recipe;
+        for(let i=0; i<recipes.length; i++){
+            let rec = recipes[i];
+            if(rec.id[0]==recipe.id){ // filter
+                // console.log(rec);
+                delete recipes[i];
+                result.recipes.recipe.push(recipe);
+            }
+            // console.log(recipes);
+        }
+        JSONtoXMLFile('recipes.xml', result, function(err){
+            if (err) console.log(err);
+            // res.redirect('back');
+            res.end();
+        });
+    });
+}
+
+router.post('/post/add-or-update', function(req, res){
+    console.log("Request Body")
+    console.log(req.body);
+    
+    addOrEdit(req.body.recipe, res);
+});    
     
 router.post("/recipes", function(req, record){});
 
