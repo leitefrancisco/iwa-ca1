@@ -226,19 +226,22 @@ function getFields(obj){
         }
     }
     var strJSON = "{"+
+        "'recipe':{"+
         "'title': '"+title+"',"+
         "'id':'"+ recipe_id+"',"+
-        "'ingredients':[";
+        "'ingredients':{"+
+        "'ingredient':[";
+
 
         for(var i = 0 ;i<ingredients.length;i++){
-            strJSON +="{ingredient:'"+ ingredients[i]+"'}"
+            strJSON +="'"+ ingredients[i]+"'"
             if(i<ingredients.length-1){
                 strJSON +=","
             }
         }
 
-        strJSON+="],"+
-        "'instructions' :'"+instructions+"'}";
+        strJSON+="]},"+
+        "'instructions' :'"+instructions+"'}}";
             
     console.log(strJSON);
   
