@@ -66,29 +66,35 @@ router.get("/get/recipe", function(req, res){
 });
 
 router.post('/post/delete', function(req, res){
-    console.log(req.body)
 
     function deleteJSON(obj){
-        console.log(obj + "o objeto")
+        console.log(obj.id + "o objeto")
         XMLtoJSON('recipes.xml', function(err, result){
             if (err) throw (err);
-
+            let recipes = result.recipes.recipe;
             console.log("o codigo chegou aqui")
+            for(let i=0; i<recipes.length; i++){
+                let rec = recipes[i];
+                console.log("oi"+rec);
+                if(rec.id[0]==obj.id){ // filter
+                    console.log("Found");
+                    
+                    delete rec
+                    // res.end(recJsonStr); //Serve back the user
+                }
+                
+                
+            }
 
-            let recipesFromXml = result.recipes.recipe;
-            
-            console.log(recipesFromXml);
-            delete result.recipes.recipe.id[0][obj.id]
-
-            JSONtoXML('recipes.xml', result, function(err){
+            JSONtoXMLDoc('recipes.xml', result, function(err){
                 if (err) console.log(err);
-              
+                res.redirect('back');
             });
         });
     };
 
     deleteJSON(req.query);
-    res.redirect('back');
+    
 });
 
 
