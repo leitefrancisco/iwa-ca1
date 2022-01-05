@@ -1,8 +1,6 @@
 var currentSelected='';
 var jsonFile = '';
 
-
-
 function refresh_page(){
     $("#middle").html("");
     getTitles();
@@ -123,9 +121,7 @@ function draw_recipe(recipeId){
                     "<ul>"
 
                 for(let i=0; i < ingredients.length;i++){
-                    
-                    strHtml += "<li>" + ingredients[i] + "</li>";
-                        
+                    strHtml += "<li>" + ingredients[i] + "</li>";       
                 }
 
                 strHtml+="</ul>"+
@@ -141,8 +137,7 @@ function draw_recipe(recipeId){
             }
         });
     };
-    $.getHTMLuncached("/get/recipe");
-    
+    $.getHTMLuncached("/get/recipe"); 
 };
 
 function delete_recipe(){
@@ -176,51 +171,22 @@ function save() {
                 dataType: 'json',
                 contentType: 'application/json',
                 data:  jsonToAdd,
-                success: setTimeout(refresh_page, 1000)
+                success: setTimeout(refresh_page, 2000)
             }
         )
     };
     $.add('/post/add-or-update');
 }
-else{
-    //print message if necessary
-}
 };
 
-function save_eddited_recipe(addOrEdit) {
-    if(kindOfEdicao != String.empty){
-    $.edit = function (url) {
-        $.ajax(
-            {
-                url: url,
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: { json: kindOfEdicao },
-                success: setTimeout(refresh_page, 1000)
-            }
-        )
-    };
-    $.edit('/post/edit/');
-    }
-    else{
-        //print message if necessary
-    }
-};
 
 function getFields(){
     
-    // var recipe_id ='';
-
-    // if (currentSelected != ''){
-    //     recipe_id = currentSelected;
-    // }
-    // else{
-    //     recipe_id = '';
-    // }
     var recipe_id = document.getElementById("recipe-id").value.trim();
     var title = document.getElementById("recipe-name").value.trim();
-    var instructions = document.getElementById("recipe-instructions").value.trim();
+    var instructions = document.getElementById("recipe-instructions").value;
+    instructions = instructions.replace("\n","\\n")
+    console.log(instructions);
     var list = document.querySelectorAll("#ingredients-row > input");
     var ingredients =[]
     if (list != null && list.length>0){
@@ -231,22 +197,24 @@ function getFields(){
     }
     var strJSON = '{'+
     '"recipe":{'+
-    '"title": "' + title + '",'+
+    '"title": "' + title.trim() + '",'+
     '"id":"'+ recipe_id + '",'+
     '"ingredients":{'+
     '"ingredient":[';
 
     for(var i = 0 ;i<ingredients.length;i++){
-        strJSON +='"'+ ingredients[i]+'"'
-        if(i<ingredients.length-1){
+        if(ingredients[i]!=''){
+            strJSON +='"'+ ingredients[i].trim()+'"'
+            console.log(ingredients[i])
+            if(i<ingredients.length-1){
             strJSON +=','
+            }
         }
     }
 
     strJSON+=']},'+
     '"instructions" :"'+instructions+'"}}';
-            
-       
+       console.log(instructions);       
     console.log(strJSON); 
     return strJSON;
 }
