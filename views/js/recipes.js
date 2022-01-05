@@ -225,18 +225,19 @@ function getFields(obj){
             ingredients.push(eachElement);
         }
     }
+    console.log(title + instructions + ingredients + recipe_id)
     
     //convert to json
-    {[
-        "id": recipe_id,
-        "instruction": "tre",
-        "title":"gfd",
-        "ingredients"{
-            "ingredient":"tre",
-            "ingredient":"hjujdujdu"
-        }
-    ]}
-    "teste"
+    // {[
+    //     "id": recipe_id,
+    //     "instruction": "tre",
+    //     "title":"gfd",
+    //     "ingredients"{
+    //         "ingredient":"tre",
+    //         "ingredient":"hjujdujdu"
+    //     }
+    // ]}
+    // "teste"
 }
 
 function generate_id(){
