@@ -38,7 +38,7 @@ router.get("/get/recipe", function(req, res){
   
     function getRecipeJSON(obj){
 
-        console.log(obj)
+        // console.log(obj)
         // XML => JSON => (FILTER)
         XMLtoJSON('recipes.xml', function(err, result){
             if (err) throw (err);
@@ -48,7 +48,7 @@ router.get("/get/recipe", function(req, res){
                 let rec = recipes[i];
                 if(rec.id[0]==obj.id){ // filter
                     console.log("Found");
-                    console.log(rec);
+                    // console.log(rec);
                     let recJsonStr = JSON.stringify(rec);
                     res.end(recJsonStr); //Serve back the user
                 }
@@ -68,23 +68,16 @@ router.get("/get/recipe", function(req, res){
 router.post('/post/delete', function(req, res){
 
     function deleteJSON(obj){
-        console.log(obj.id + "o objeto")
+
+
+        console.log(obj)
+
+
         XMLtoJSON('recipes.xml', function(err, result){
             if (err) throw (err);
             let recipes = result.recipes.recipe;
-            console.log("o codigo chegou aqui")
-            for(let i=0; i<recipes.length; i++){
-                let rec = recipes[i];
-                console.log("oi"+rec);
-                if(rec.id[0]==obj.id){ // filter
-                    console.log("Found");
-                    
-                    delete rec
-                    // res.end(recJsonStr); //Serve back the user
-                }
-                
-                
-            }
+            console.log(recipes)
+            
 
             JSONtoXMLDoc('recipes.xml', result, function(err){
                 if (err) console.log(err);
@@ -93,7 +86,7 @@ router.post('/post/delete', function(req, res){
         });
     };
 
-    deleteJSON(req.query);
+    deleteJSON(req);
     
 });
 

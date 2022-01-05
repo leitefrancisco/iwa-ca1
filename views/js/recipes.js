@@ -83,6 +83,7 @@ function draw_recipe(recipeId){
     
 };
 
+
 function delete_recipe(){
     $.delete = function(url) {
         $.ajax(
@@ -91,7 +92,7 @@ function delete_recipe(){
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
-                data: "id=" + currentSelected,
+                data: 'id=' + currentSelected,
                 cache: false,
                 success: setTimeout(1000)
             }
