@@ -1,5 +1,8 @@
 var currentSelected='';
 
+function refresh_page(){
+    
+}
 
 function add_new_row(){
     $("#ingredients-row").append('<label class="extra-ingredients form-label">Ingredient:</label>'+'<input type="text" class="form-control">')
@@ -12,7 +15,6 @@ function open_recipe(recipeId){
     $("#middle").empty();
     draw_recipe(recipeId);
     currentSelected = recipeId;
-    console.log(currentSelected);
 };
 
 function add_new_recipe(){
@@ -85,6 +87,7 @@ function draw_recipe(recipeId){
 
 
 function delete_recipe(){
+
     $.delete = function(url) {
         $.ajax(
             {
@@ -92,15 +95,13 @@ function delete_recipe(){
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
-                data: 'id=' + currentSelected,
-                cache: false,
-                success: setTimeout(1000)
+                data: {id: currentSelected},
+                success: 
             }
         )
-        
     };
-    $.delete('/post/delete');
-   
+    $.delete('/post/delete/'+currentSelected);
+   $("middle").empty();
 };
 
 function edit_recipe(){

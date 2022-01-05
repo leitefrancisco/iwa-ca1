@@ -65,29 +65,34 @@ router.get("/get/recipe", function(req, res){
     getRecipeJSON(req.query);
 });
 
-router.post('/post/delete', function(req, res){
+router.post('/post/delete/:id', function(req, res){
+    // res.writeHead(200, {'Content-Type' : 'application/json'});
 
     function deleteJSON(obj){
 
-
         console.log(obj)
-
-
+    
         XMLtoJSON('recipes.xml', function(err, result){
             if (err) throw (err);
             let recipes = result.recipes.recipe;
-            console.log(recipes)
-            
-
-            JSONtoXMLDoc('recipes.xml', result, function(err){
+            for(let i=0; i<recipes.length; i++){
+                let rec = recipes[i];
+                if(rec.id[0]==obj){ // filter
+                    console.log(rec);
+                    delete recipes[i];
+                    // let recJsonStr = JSON.stringify(rec);
+                    // res.end(recJsonStr); //Serve back the user
+                }
+                console.log(recipes)
+            }
+            JSONtoXMLFile('recipes.xml', result, function(err){
                 if (err) console.log(err);
                 res.redirect('back');
             });
         });
     };
 
-    deleteJSON(req);
-    
+    deleteJSON(req.params.id);
 });
 
 
@@ -109,7 +114,7 @@ router.get("/get/recipes-titles",function(req, res){
     
 router.post("/recipes", function(req, record){});
 
-server.listen(process.env.PORT || 3000,
+server.listen(process.env.PORT || 3001,
     process.env.IP || "0.0.0.0",
     function () {
         const addr = server.address();
