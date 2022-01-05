@@ -225,19 +225,25 @@ function getFields(obj){
             ingredients.push(eachElement);
         }
     }
-    console.log(title + instructions + ingredients + recipe_id)
+    var strJSON = "{"+
+        "'title': '"+title+"',"+
+        "'id':'"+ recipe_id+"',"+
+        "'ingredients':[";
+
+        for(var i = 0 ;i<ingredients.length;i++){
+            strJSON +="'"+ ingredients[i]+"'"
+            if(i<ingredients.length-1){
+                strJSON +=","
+            }
+        }
+
+        strJSON+="],"+
+        "'instructions' :'"+instructions+"'}";
+            
+    console.log(strJSON);
+  
     
-    //convert to json
-    // {[
-    //     "id": recipe_id,
-    //     "instruction": "tre",
-    //     "title":"gfd",
-    //     "ingredients"{
-    //         "ingredient":"tre",
-    //         "ingredient":"hjujdujdu"
-    //     }
-    // ]}
-    // "teste"
+    
 }
 
 function generate_id(){
