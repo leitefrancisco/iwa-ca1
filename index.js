@@ -66,11 +66,10 @@ router.get("/get/recipe", function(req, res){
 });
 
 router.post('/post/delete', function(req, res){
-
-    console.log(req.body);
+    console.log(req.body)
 
     function deleteJSON(obj){
-
+        console.log(obj + "o objeto")
         XMLtoJSON('recipes.xml', function(err, result){
             if (err) throw (err);
 
@@ -88,7 +87,7 @@ router.post('/post/delete', function(req, res){
         });
     };
 
-    deleteJSON(obj);
+    deleteJSON(req.query);
     res.redirect('back');
 });
 

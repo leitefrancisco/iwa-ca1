@@ -84,18 +84,21 @@ function draw_recipe(recipeId){
 };
 
 function delete_recipe(){
-    
+    $.delete = function(url) {
         $.ajax(
             {
-                url: '/post/delete',
+                url: url,
                 type: 'POST',
-                // dataType: 'json',
-                // contentType: 'application/json',
+                dataType: 'json',
+                contentType: 'application/json',
                 data: "id=" + currentSelected,
                 cache: false,
                 success: setTimeout(1000)
             }
         )
+        
+    };
+    $.delete('/post/delete');
    
 };
 
