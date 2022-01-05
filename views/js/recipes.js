@@ -42,7 +42,6 @@ function add_new_recipe(){
 };
 
 function draw_recipe(recipeId){
-    $("#middle").empty();
     $.getHTMLuncached = function(url) {
         return $.ajax({
             url: url,
@@ -84,21 +83,20 @@ function draw_recipe(recipeId){
     
 };
 
-function delete_recipe(sec, ent){
-    $("#delete").click(function()
-    {
+function delete_recipe(){
+    
         $.ajax(
             {
-                url: "/post/delete",
-                type: "POST",
-                dataType: 'json',
-                contentType: 'application/json',
-                data: '{"sec": "' + sec + '", "ent": "' + ent + '"}',
+                url: '/post/delete',
+                type: 'POST',
+                // dataType: 'json',
+                // contentType: 'application/json',
+                data: "id=" + currentSelected,
                 cache: false,
-                success: setTimeout(draw_table, 1000)
+                success: setTimeout(1000)
             }
         )
-    })
+   
 };
 
 function edit_recipe(){

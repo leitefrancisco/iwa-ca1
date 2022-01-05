@@ -65,6 +65,34 @@ router.get("/get/recipe", function(req, res){
     getRecipeJSON(req.query);
 });
 
+router.post('/post/delete', function(req, res){
+
+    console.log(req.body);
+
+    function deleteJSON(obj){
+
+        XMLtoJSON('recipes.xml', function(err, result){
+            if (err) throw (err);
+
+            console.log("o codigo chegou aqui")
+
+            let recipesFromXml = result.recipes.recipe;
+            
+            console.log(recipesFromXml);
+            delete result.recipes.recipe.id[0][obj.id]
+
+            JSONtoXML('recipes.xml', result, function(err){
+                if (err) console.log(err);
+              
+            });
+        });
+    };
+
+    deleteJSON(obj);
+    res.redirect('back');
+});
+
+
 router.get("/get/recipes-titles",function(req, res){
 
         res.writeHead(200, {'Content-Type' : 'text/html'}); //Tell the user that the resource exists and which type that is
