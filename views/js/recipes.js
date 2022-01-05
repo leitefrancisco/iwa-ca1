@@ -231,7 +231,7 @@ function getFields(obj){
         "'ingredients':[";
 
         for(var i = 0 ;i<ingredients.length;i++){
-            strJSON +="'"+ ingredients[i]+"'"
+            strJSON +="{ingredient:'"+ ingredients[i]+"'}"
             if(i<ingredients.length-1){
                 strJSON +=","
             }
@@ -242,6 +242,7 @@ function getFields(obj){
             
     console.log(strJSON);
   
+
     
     
 }
