@@ -83,7 +83,7 @@ router.post('/post/delete/:id', function(req, res){
                     // let recJsonStr = JSON.stringify(rec);
                     // res.end(recJsonStr); //Serve back the user
                 }
-                console.log(recipes)
+                console.log(recipes);
             }
             JSONtoXMLFile('recipes.xml', result, function(err){
                 if (err) console.log(err);
@@ -103,13 +103,14 @@ router.get("/get/recipes-titles",function(req, res){
         let xml = fs.readFileSync('recipes.xml', 'utf8'), //read in the XML file
             xsl = fs.readFileSync('recipes-titles.xsl', 'utf8'); //read in the XSL file
     
-    
+            console.log(xml)
         let doc = xmlParse(xml), //Parse the XML file
             stylesheet = xmlParse(xsl); //Parse the XSL file
     
         let result = xsltProcess(doc, stylesheet); //Performing XSLT
     
         res.end(result.toString()); //Serve back the user    
+        
     });
     
 router.post("/recipes", function(req, record){});
