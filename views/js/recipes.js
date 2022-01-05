@@ -1,12 +1,10 @@
 var currentSelected='';
 
-function refresh_page(){
-    
-}
 
 function add_new_row(){
     $("#ingredients-row").append('<label class="extra-ingredients form-label">Ingredient:</label>'+'<input type="text" class="form-control">')
 };
+
 function delete_empty_rows(){
 
 };
@@ -96,7 +94,7 @@ function delete_recipe(){
                 dataType: 'json',
                 contentType: 'application/json',
                 data: {id: currentSelected},
-                success: 
+                success: setTimeout(getTitles(),1000)
             }
         )
     };

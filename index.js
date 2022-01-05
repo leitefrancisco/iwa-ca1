@@ -115,7 +115,7 @@ router.get("/get/recipes-titles",function(req, res){
     
 router.post("/recipes", function(req, record){});
 
-server.listen(process.env.PORT || 3001,
+server.listen(process.env.PORT || 3000,
     process.env.IP || "0.0.0.0",
     function () {
         const addr = server.address();
