@@ -1,29 +1,29 @@
-var currentSelected='';
-
+var currentSelected='';//global variable to know what recipe is selected
+//refreshes the page after adding or editing a recipe
 function refresh_page(){
     $("#middle").html("");
     getTitles();
 }
-
+//adds a new row to add more ingredients
 function add_new_row(){
     $("#ingredients-row").append('<input type="text" class="form-control">')
 };
-
+//delete last ingredient row in the array
 function delete_last_ingredient_row(){
     var list = document.getElementById("ingredients-row");   
     list.removeChild(list.childNodes[list.childNodes.length -1]);    
 };
-
+//opens the recipe clicked on the left menu
 function open_recipe(recipeId){
     $("#middle").empty();
     draw_recipe(recipeId);
     currentSelected = recipeId;
 };
-
+//opens a form in blank to add a new recipe
 function add_new_recipe(){
     $("#middle").empty();
     currentSelected = '';
-    let strHtml =   "<form class = 'ingredients-form'>"+
+    let strHtml =   "<form class = 'ingredients-form'>"+//renders the html to the "middle div" in the index.html
                     "<label for='recipe-name' class='form-label'>Recipe Name:</label>"+
                     "<input type='text' class='form-control' id='recipe-name'>"+
                     "<div class='mb-3'>"+
@@ -46,7 +46,7 @@ function add_new_recipe(){
     $("#middle").append(strHtml);
 
 };
-
+//opens a form with the current recipe selected so the user can edit it
 function edit_recipe(){
     $("#middle").empty();
     $.getHTMLuncached = function(url) {
@@ -60,7 +60,7 @@ function edit_recipe(){
                 //$("#middle").append(html);
                 console.log(rec);
                 
-                let ingredients = rec.ingredients[0].ingredient;
+                let ingredients = rec.ingredients[0].ingredient;//renders the form with the information from the json received
                 let strHtml = "<form class = 'ingredients-form'>"+
                     "<label for='recipe-name' class='form-label'>Recipe Name:</label>"+
                     "<div id = 'recipeName-row' class='col-8'></div>"+
@@ -98,7 +98,6 @@ function edit_recipe(){
     $.getHTMLuncached("/get/recipe");
     
 };
-
 function draw_recipe(recipeId){
     $.getHTMLuncached = function(url) {
         return $.ajax({
@@ -181,7 +180,6 @@ function save() {
         }
     }
 };
-
 
 function getFields(){
     
