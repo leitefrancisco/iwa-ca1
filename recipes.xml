@@ -13,14 +13,6 @@
     <instructions>add instructions here agora vai eusa ds adsaodjso ad sahdi sahdjis adhsj adhskja dhasjk dhsakj dhska dhskajdhs ajkdsdh akdjsh akdsa</instructions>
   </recipe>
   <recipe>
-    <title>Ice</title>
-    <id>4c5bde4f-2e90-4f15-a168-332e860aafb0</id>
-    <ingredients>
-      <ingredient>water</ingredient>
-    </ingredients>
-    <instructions>put the water in a bowl and put in the freezer, wait until it gets solid</instructions>
-  </recipe>
-  <recipe>
     <title>Orange Juice</title>
     <id>a18a397a-92e1-4921-8b6e-6c6385f7ffbe</id>
     <ingredients>
@@ -36,5 +28,13 @@
       <ingredient>chocolate</ingredient>
     </ingredients>
     <instructions>add 2 spoons of milk into a cup of milk and mix it well</instructions>
+  </recipe>
+  <recipe>
+    <title>Ice</title>
+    <id>bf8f2610-2626-4940-accd-7e41d1436f20</id>
+    <ingredients>
+      <ingredient>water</ingredient>
+    </ingredients>
+    <instructions>put water in a bowl and put in the freezer until it gets solid.</instructions>
   </recipe>
 </recipes>
