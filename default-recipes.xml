@@ -1,60 +1,40 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <recipes>
-    <recipe>
-        <id>1</id>
-        <title>
-            Estrombolhofe de pombo gordo
-        </title>
-        <ingredients>
-            <ingredient>
-                pombo gordo
-            </ingredient>
-            <ingredient>
-                molho
-            </ingredient>
-        </ingredients>
-        <instructions>
-            blab albal balb allb allb
-        </instructions>
-    </recipe>
-    <recipe>
-        <id>2</id>
-        <title>
-            Porco Morto com Batata
-        </title>
-        <ingredients>
-            <ingredient>
-                porco morto
-            </ingredient>
-            <ingredient>
-                batata
-            </ingredient>
-            <ingredient>
-                azeite
-            </ingredient>
-        </ingredients>
-        <instructions>
-            assa tudo junto
-        </instructions>
-    </recipe>
-    <recipe>
-        <id>3</id>
-        <title>
-            Lingua de Boi
-        </title>
-        <ingredients>
-            <ingredient>
-                Lingua de boi
-            </ingredient>
-            <ingredient>
-                agua
-            </ingredient>
-            <ingredient>
-                sal
-            </ingredient>
-        </ingredients>
-        <instructions>
-           mistura tudo e cozinha
-        </instructions>
-    </recipe>
+  <recipe>
+    <title>Rice</title>
+    <id>7fc0224a-1b9d-4444-a882-d48cb1cc0d93</id>
+    <ingredients>
+      <ingredient>1 cup of rice</ingredient>
+      <ingredient>2 cups of water</ingredient>
+      <ingredient>garlic</ingredient>
+      <ingredient>salt</ingredient>
+      <ingredient>1 spoon of oil</ingredient>
+    </ingredients>
+    <instructions>add instructions here agora vai eusa ds adsaodjso ad sahdi sahdjis adhsj adhskja dhasjk dhsakj dhska dhskajdhs ajkdsdh akdjsh akdsa</instructions>
+  </recipe>
+  <recipe>
+    <title>Ice</title>
+    <id>4c5bde4f-2e90-4f15-a168-332e860aafb0</id>
+    <ingredients>
+      <ingredient>water</ingredient>
+    </ingredients>
+    <instructions>put the water in a bowl and put in the freezer, wait until it gets solid</instructions>
+  </recipe>
+  <recipe>
+    <title>Orange Juice</title>
+    <id>a18a397a-92e1-4921-8b6e-6c6385f7ffbe</id>
+    <ingredients>
+      <ingredient>4 Oranges</ingredient>
+    </ingredients>
+    <instructions>With an orange squeezer, squeeze around 4 oranges for a glass full of juice</instructions>
+  </recipe>
+  <recipe>
+    <title>Chocolate Milk</title>
+    <id>ea0aea72-d898-4a01-a848-db7a4a6ec46c</id>
+    <ingredients>
+      <ingredient>Milk</ingredient>
+      <ingredient>chocolate</ingredient>
+    </ingredients>
+    <instructions>add 2 spoons of milk into a cup of milk and mix it well</instructions>
+  </recipe>
 </recipes>

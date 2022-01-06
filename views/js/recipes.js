@@ -98,6 +98,7 @@ function edit_recipe(){
     $.getHTMLuncached("/get/recipe");
     
 };
+//draws the recipe to the middle div in the index html
 function draw_recipe(recipeId){
     $.getHTMLuncached = function(url) {
         return $.ajax({
@@ -107,7 +108,7 @@ function draw_recipe(recipeId){
             cache: false,
             success: function(rec) {
                 
-                //$("#middle").append(html);
+                
                 console.log(rec);
                 
                 let ingredients = rec.ingredients[0].ingredient;
@@ -117,7 +118,7 @@ function draw_recipe(recipeId){
                     "<h2>Ingredients</h2>"+
                     "<ul>"
 
-                for(let i=0; i < ingredients.length;i++){
+                for(let i=0; i < ingredients.length;i++){  //add each ingredient to the div
                     strHtml += "<li>" + ingredients[i] + "</li>";       
                 }
 
@@ -136,7 +137,7 @@ function draw_recipe(recipeId){
     };
     $.getHTMLuncached("/get/recipe"); 
 };
-
+//deletes the current recipe
 function delete_recipe(){
     
     $.delete = function(url) {
@@ -146,7 +147,7 @@ function delete_recipe(){
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
-                data: '{"id": "' + currentSelected + '"}',
+                data: '{"id": "' + currentSelected + '"}', //whenever you open a recipe, its id is stored in the global variable currentSelected
                 cache:false,
                 success: setTimeout(refresh_page,1000)
                
@@ -156,11 +157,11 @@ function delete_recipe(){
     $.delete('/post/delete');
   
 };
-
+//saves the new recipe or the editted recipe in the xml file  the server knows by the id of the recipe if it is a edition or an add
 function save() {
     var jsonToAdd = getFields();
     if (jsonToAdd == null){
-        alert("please fill all the fields and have at least one ingredient")
+        alert("please fill all the fields and have at least one ingredient")//make sure the fields are filled
     }
     else{
         if(jsonToAdd != String.empty){
@@ -180,7 +181,7 @@ function save() {
         }
     }
 };
-
+//gets the information in the fields and transforms it into a json format
 function getFields(){
     
     var recipe_id = document.getElementById("recipe-id").value.trim();
@@ -217,7 +218,7 @@ function getFields(){
     strJSON+=']},'+
     '"instructions" :"'+instructions+'"}}';    
 
-    if(title== '' ||instructions ==''||ingredients.length==0){
+    if(title== '' ||instructions ==''||ingredients.length==0){ //returns null if some field is missing
         return null;
     }
     else{
@@ -225,7 +226,7 @@ function getFields(){
     }
     
 }
-
+//gets the titles from the xml file and uses the xsl file to get only the titles and transform from xml to html
 function getTitles(){
     $("#menu-recipes").empty();
     $.getHTMLuncached = function(url) {
@@ -240,8 +241,7 @@ function getTitles(){
     };
     $.getHTMLuncached("/get/recipes-titles");
 };
-
-
+//when the document finishes loading , get the titles of the available recipes
 $(document).ready(function(){
     getTitles();
 });
