@@ -1,20 +1,20 @@
-
-const express = require("express"),
-fs = require("fs"),
-http = require("http"),
-path = require("path"),
-xml2js = require("xml2js"),
-xmlParse = require ("xslt-processor").xmlParse,
-xsltProcess = require("xslt-processor").xsltProcess,
-uuid = require("uuid")
+//https://github.com/mikhail-cct/iwa-practical code to create server was taken from here
+const express = require("express"),//allows to respond to http request, defines routers and renders
+fs = require("fs"),//file system to read and write files
+http = require("http"),//http server
+path = require("path"),//Utility that allows us to work with directory paths
+xml2js = require("xml2js"),//This is XML <-> JSON converter
+xmlParse = require ("xslt-processor").xmlParse,//Parsing XML
+xsltProcess = require("xslt-processor").xsltProcess,//Processing XSLT
+uuid = require("uuid") //allows to generate uuid (used to create ids for the recipes)
 ;
 
-const router = express(),
-server = http.createServer(router);
+const router = express(),//Instantiating Express
+server = http.createServer(router); //Instantiating the server
 
-router.use(express.static(path.resolve(__dirname,"views")));
-router.use(express.json());
-
+router.use(express.static(path.resolve(__dirname,"views")));//Serving static content from "views" folder
+router.use(express.json());//allows to use req.body from post methods
+//converts xml to json
 function XMLtoJSON(filename, cb){
     let filepath = path.normalize(path.join(__dirname, filename));
     fs.readFile(filepath, 'utf8', function(err, xmlStr){
@@ -22,20 +22,20 @@ function XMLtoJSON(filename, cb){
         xml2js.parseString(xmlStr, {}, cb);
     });
 };
-
+//convertts json to xml doc 
 function JSONtoXMLDoc( obj) {
     let builder = new xml2js.Builder();
     let xml = builder.buildObject(obj);
     return xml;
 };
-
+//to save the xml file
 function JSONtoXMLFile(filename, obj, cb) {
     let xml = JSONtoXMLDoc(obj, cb)
     let filepath = path.normalize(path.join(__dirname, filename));
     fs.unlinkSync(filepath);
     fs.writeFile(filepath, xml, cb);
 };
-
+//gets one recipe to show to the user
 router.get("/get/recipe", function(req, res){
 
      res.writeHead(200, {'Content-Type' : 'application/json'}); //Tell the user that the resource exists and which type that is
@@ -61,7 +61,7 @@ router.get("/get/recipe", function(req, res){
     };
     getRecipeJSON(req.query);
 });
-
+//deletes the recipe from xml file
 router.post('/post/delete', function(req, res){
     function deleteJSON(obj){
         if(obj===undefined){
@@ -89,7 +89,7 @@ router.post('/post/delete', function(req, res){
 
     deleteJSON(req.body);
 });
-
+//get all the titles using the xsl file
 router.get("/get/recipes-titles",function(req, res){
 
         res.writeHead(200, {'Content-Type' : 'text/html'}); //Tell the user that the resource exists and which type that is
@@ -105,7 +105,7 @@ router.get("/get/recipes-titles",function(req, res){
         res.end(result.toString()); //Serve back the user    
         
     });
-
+//defines if the update will add a new recipe or edit an existing one
 function addOrEdit(recipe, res) {
     if(recipe.id=="") {
         addRecipe(recipe, res);
@@ -113,11 +113,11 @@ function addOrEdit(recipe, res) {
         editRecipe(recipe, res);
     }
 }
-
+//adds a new recipe 
 function addRecipe(recipe, res) {
     // xml 
     console.log("add");
-    recipe.id = uuid.v4();
+    recipe.id = uuid.v4();//creates an uuid id for the recipe
     XMLtoJSON('recipes.xml', function(err, result){
         console.log("xmltojson");
         
@@ -133,7 +133,7 @@ function addRecipe(recipe, res) {
         });
     });
 }
-
+//"edit the recipe"
 function editRecipe(recipe, res) {
     //xml
     console.log("edit: " + recipe.id);
@@ -144,7 +144,7 @@ function editRecipe(recipe, res) {
             let rec = recipes[i];
             if(rec.id[0]==recipe.id){ // filter
                 // console.log(rec);
-                delete recipes[i];
+                delete recipes[i];//actually deletes the recipe and add the eddited version to the file
                 result.recipes.recipe.push(recipe);
             }
             // console.log(recipes);
@@ -156,7 +156,7 @@ function editRecipe(recipe, res) {
         });
     });
 }
-
+//execute the functions to add or update a recipe
 router.post('/post/add-or-update', function(req, res){
     console.log("Request Body")
     console.log(req.body);
@@ -166,7 +166,7 @@ router.post('/post/add-or-update', function(req, res){
     
 router.post("/recipes", function(req, record){});
 
-server.listen(process.env.PORT || 3001,
+server.listen(process.env.PORT || 3000,
     process.env.IP || "0.0.0.0",
     function () {
         const addr = server.address();
