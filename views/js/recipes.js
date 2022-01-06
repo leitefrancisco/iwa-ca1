@@ -1,5 +1,4 @@
 var currentSelected='';
-var jsonFile = '';
 
 function refresh_page(){
     $("#middle").html("");
@@ -45,7 +44,6 @@ function add_new_recipe(){
                     "<button type='button' class='btn btn-primary' onclick ='save()' >Save Recipe</button>"+
                     "</form>";
     $("#middle").append(strHtml);
-    
 
 };
 
@@ -162,9 +160,13 @@ function delete_recipe(){
 
 function save() {
     var jsonToAdd = getFields();
-    if(jsonToAdd != String.empty){
-    $.add = function (url) {
-        $.ajax(
+    if (jsonToAdd == null){
+        alert("please fill all the fields and have at least one ingredient")
+    }
+    else{
+        if(jsonToAdd != String.empty){
+        $.add = function (url) {
+            $.ajax(
             {
                 url: url,
                 type: 'POST',
@@ -173,10 +175,11 @@ function save() {
                 data:  jsonToAdd,
                 success: setTimeout(refresh_page, 2000)
             }
-        )
-    };
-    $.add('/post/add-or-update');
-}
+            )
+        };
+        $.add('/post/add-or-update');
+        }
+    }
 };
 
 
@@ -185,8 +188,6 @@ function getFields(){
     var recipe_id = document.getElementById("recipe-id").value.trim();
     var title = document.getElementById("recipe-name").value.trim();
     var instructions = document.getElementById("recipe-instructions").value;
-    instructions = instructions.replace("\n","\\n")
-    console.log(instructions);
     var list = document.querySelectorAll("#ingredients-row > input");
     var ingredients =[]
     if (list != null && list.length>0){
@@ -203,20 +204,28 @@ function getFields(){
     '"ingredient":[';
 
     for(var i = 0 ;i<ingredients.length;i++){
-        if(ingredients[i]!=''){
+        if(ingredients[i]!=''&& !ingredients[i].empty){
             strJSON +='"'+ ingredients[i].trim()+'"'
-            console.log(ingredients[i])
             if(i<ingredients.length-1){
             strJSON +=','
             }
         }
     }
 
+    for(var i = 0; i<ingredients.length; i++){
+        console.log(ingredients[i])
+    }
+
     strJSON+=']},'+
-    '"instructions" :"'+instructions+'"}}';
-       console.log(instructions);       
-    console.log(strJSON); 
-    return strJSON;
+    '"instructions" :"'+instructions+'"}}';    
+
+    if(title== '' ||instructions ==''||ingredients.length==0){
+        return null;
+    }
+    else{
+        return strJSON;
+    }
+    
 }
 
 function getTitles(){

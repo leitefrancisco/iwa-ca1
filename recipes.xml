@@ -28,4 +28,14 @@
     </ingredients>
     <instructions>With an orange squeezer, squeeze around 4 oranges for a glass full of juice</instructions>
   </recipe>
+  <recipe>
+    <title>Chocolate Milk</title>
+    <id>ea0aea72-d898-4a01-a848-db7a4a6ec46c</id>
+    <ingredients>
+      <ingredient>Milk</ingredient>
+      <ingredient>chocolate</ingredient>
+      <ingredient>ice</ingredient>
+    </ingredients>
+    <instructions>add 2 spoons of milk into a cup of milk and mix it well</instructions>
+  </recipe>
 </recipes>
